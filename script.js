@@ -1,10 +1,11 @@
 console.log("script is working! Let's play some Towers");
 
+// variables
 let disk = null;
 let numOfDisks = 3;
-document.getElementById("disk-range").value = numOfDisks;
 
-const towers = document.getElementsByClassName("tower");
+
+// document.getElementById("disk-range").value = numOfDisks;
 
 if (localStorage.getItem("numOfDisks") !== 3) numOfDisks = localStorage.getItem("numOfDisks");
 document.getElementById("disk-range").value = numOfDisks;
@@ -12,12 +13,15 @@ document.getElementById("disk-range").value = numOfDisks;
 // populate the board with number of disks inputed
 function populateBoard () {
     for (let i = 1; i <= numOfDisks; i++) {
+        // create a disk
         let disk = document.createElement("div")
-        // class="disk small" id="1" ondragstart="dragStart(event)"
         disk.setAttribute("class", "disk");
         disk.setAttribute("id", "disk"+i);
+
+        // allow the disk to be draggable
         disk.setAttribute("ondragstart", "dragStart(event)");
 
+        // append the disk on the first tower
         document.querySelector(".source").appendChild(disk);
     }
 }
@@ -48,6 +52,8 @@ function addToScore () {
     document.querySelector("#score").innerHTML = score;
 }
 
+
+const towers = document.getElementsByClassName("tower");
 // a function that makes each of the disks draggable
 function disksDraggable () {
     for (tower of towers) {
@@ -60,6 +66,10 @@ function disksDraggable () {
         // tower.children.setAttribute("draggable", "false")
         if (tower.firstElementChild != null) tower.firstElementChild.setAttribute("draggable", "true");
     }
+}
+
+function illegalMoveModal () {
+    document.getElementById('illegal-move-modal').style.display = "block";
 }
 
 // preventing the user from placing a larger disk on a smaller one
@@ -77,7 +87,7 @@ function isLegalMove (event, data) {
             addToScore();
         }
         // if these conditions arent met, it must be an illegal move
-        else alert("That is an illegal move!")
+        else illegalMoveModal();
     }
     // is the cursor near the tower
     else if (event.target.children[0].children[0] === undefined) {
@@ -88,7 +98,7 @@ function isLegalMove (event, data) {
         event.target.children[0].prepend(document.getElementById(data));
         addToScore();
     }
-    else alert("That is an illegal move!")
+    else illegalMoveModal();
 }
 
 // check to see if the game is complete
@@ -155,18 +165,22 @@ document.getElementById("disk-range").addEventListener('change', function() {
     changeDiskPopulation(value);
 })
 
-// about the game modal
+// game modals
 // open the "learn to play" modal by clicking the button
-document.getElementById('open-modal').addEventListener('click', function () {
+document.getElementById('open-modal').addEventListener('click', () => {
     document.getElementById('modal').style.display = "block";
 });
 
 // close the modal
-document.getElementById('close-modal').addEventListener('click', function () {
+document.getElementById('close-modal').addEventListener('click', () => {
     document.getElementById('modal').style.display = "none";
 }); 
 
+document.getElementById('close-illegal-move-modal').addEventListener('click', () => {
+    document.getElementById('illegal-move-modal').style.display = "none";
+}); 
+
 // reset the board
-document.getElementById("reload").addEventListener('click', function () {
+document.getElementById("reload").addEventListener('click', () => {
     window.location.reload();
 });
