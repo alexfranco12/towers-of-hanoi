@@ -30,7 +30,9 @@
 
         <!-- how to play the game -->
         <button class="modal-button" id="open-modal">learn to play</button>
-        <div class="about-modal" id="modal">
+
+        <!-- instruction modal -->
+        <div class="modal about-modal" id="modal">
             <div id="modal-textbox">
                 <h1>Learn to Play Tower of Hanoi</h1>
                 <p> The Tower of Hanoi is a mathematical game or puzzle which consists of three rods and a number of disks of various sizes. The puzzle starts with the disks stacked on one rod in order of decreasing size with the smallest at the top. These disks are allowed to slide onto any rod and the objective of the puzzle is to move the entire stack to the last rod, obeying a few simple rules: </p>
@@ -45,14 +47,28 @@
             </div>
         </div>
 
+        <!-- illegal move modal -->
+        <div class="modal about-modal" id="illegal-move-modal">
+            <div id="modal-textbox">
+                <h1>Illegal Move!</h1>
+                <p> You are unable to place a larger disk on top of a smaller disk. </p>
+                <p> Please try again </p>
+                <div id="modal-footer">
+                    <button class="modal-button" id="close-illegal-move-modal">CLOSE</button>
+                </div>
+            </div>
+        </div>
+
         <!-- reload the screen to start over -->
         <button class="start-over" id="reload">start over</button>
     </div>
 
     <div class="tower-background">
+
         <!-- towers -->
         <div class="towers">
             <div class="tower-area" ondrop="drop(event)" ondragover="dragOver(event)" ondragenter="dragEnter(event)">
+                <!-- first tower -->
                 <div class="tower source"></div>
             </div>
             <div class="tower-area" ondrop="drop(event)" ondragover="dragOver(event)" ondragenter="dragEnter(event)">
