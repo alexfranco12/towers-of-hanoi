@@ -4,9 +4,28 @@ console.log("script is working! Let's play some Towers");
 let disk = null;
 let numOfDisks = 3;
 
+let numbers = document.getElementById('box');
+for (let i = 0; i < 9; i++) {
+    var span = document.createElement('span');
+    span.textContent = i;
+    numbers.appendChild(span);
+}
+var num = numbers.getElementsByTagName('span');
+var index = 0;
+
+function nextNum () {
+    num[index].style.display = 'none';
+    index = (index + 1) % num.length;
+    num[index].style.display = 'initial';
+}
+function prevNum () {
+    num[index].style.display = 'none';
+    index = (index - 1 + num.length) % num.length;
+    num[index].style.display = 'initial';
+}
+
 
 // document.getElementById("disk-range").value = numOfDisks;
-
 if (localStorage.getItem("numOfDisks") !== 3) numOfDisks = localStorage.getItem("numOfDisks");
 document.getElementById("disk-range").value = numOfDisks;
 
