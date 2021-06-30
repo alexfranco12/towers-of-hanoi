@@ -11,71 +11,60 @@
 </head>
 
 <body class="main-game">
-    <!-- title -->
-    <h1 class="heading">TOWER OF HANOI</h1>
 
     <!-- header -->
     <div class="header">
 
-        <!-- score -->
-        <div class="scoreboard">
+        <!-- title -->
+        <h1 class="heading">TOWER OF HANOI</h1>
 
-            <div class="container">
-                <span class="arrow next" onclick="nextNum()"></span>
-                <span class="arrow prev" onclick="prevNum()"></span>
-                <div id="box"></div>
+        <div class="sub-header">
+            <!-- score -->
+            <div class="scoreboard">
+
+                <div class="num-of-disks-area">
+                    <div class="num-of-disks-container">
+                        <span class="arrow next" onclick="nextNum()"></span>
+                        <span class="arrow prev" onclick="prevNum()"></span>
+                        <div id="counter"></div>
+                    </div>
+                    <div class="num-of-disks-title"> disks </div>
+                </div>
+
+                <!-- minimum number of moves needed to beat the game -->
+                <p  class="min-possible-moves"
+                    > minimum # of moves: 
+                    <span id="min-possible-moves"
+                        > 000
+                    </span>
+                </p>
             </div>
-            <p> disks </p>
-   
 
-            <!-- difficulty slider -->
-            <form class="ticker-container">
-                <label 
-                    class="ticker-header" 
-                    for="numOfDisks"
-                    > number of disks: 
-                <input 
-                    type="number" 
-                    class="ticker" 
-                    id="disk-range" 
-                    name="numOfDisks" 
-                    step="1" 
-                    value="" 
-                    placeholder="# of disks" 
-                    min="2" 
-                    max="8">
-            </form>
-            <!-- minimum number of moves needed to beat the game -->
-            <p  class="min-possible-moves"
-                > minimum # of moves: 
-                <span id="min-possible-moves"
-                    > 000
-                </span>
-            </p>
-        </div>
+            <!-- number of moves made by user -->
+            <div class="score">
+                <h2> MOVES: 
+                    <span id="score"
+                        > 000
+                    </span>
+                </h2>
+            </div>
 
-        <!-- number of moves made by user -->
-        <div class="score">
-            <h3> MOVES: 
-                <span id="score"
-                    > 000
-                </span>
-            </h3>
+            <!-- how to play the game and reload the screen buttons -->   
+            <div class="button-container">
+                <button class="button rules-button" id="open-modal"> learn to play </button>
+                <button class="button start-over-button" id="reload"> start over </button>
+            </div>
         </div>
-        
-        <!-- how to play the game and reload the screen buttons -->   
-        <div class="button-container">
-            <button class="button rules-button" id="open-modal"> learn to play </button>
-            <button class="button start-over-button" id="reload"> start over </button>
-        </div>
-
     </div>
 
     <!-- MODALS -->
     <!-- instruction modal -->
     <div class="modal about-modal" id="modal">
         <div class="textbox about-textbox">
-            <h1>LEARN TO PLAY TOWER OF HANOI</h1>
+            <h1>
+                <span>LEARN TO PLAY</span></br>
+                <span>TOWER OF HANOI</span>
+            </h1>
             <p> the tower of hanoi is a mathematical game or puzzle which consists of three rods and a number of disks of various sizes. The puzzle starts with the disks stacked on one rod in order of decreasing size with the smallest at the top. These disks are allowed to slide onto any rod and the objective of the puzzle is to move the entire stack to the last rod, obeying a few simple rules: </p>
             <ol>
                 <li>only one disk may be moved at a time.</li>
@@ -109,38 +98,37 @@
         </div>
     </div>
 
-    <!-- tower container -->
-    <div class="tower-background">
 
-        <!-- towers (minimum of three) -->
-        <div class="towers">
-            <div 
-                class="tower-area" 
-                ondrop="drop(event)" 
-                ondragover="dragOver(event)" 
-                ondragenter="dragEnter(event)" >
-                <!-- first tower -->
-                <div class="tower source"></div>
-            </div>
-            <div 
-                class="tower-area" 
-                ondrop="drop(event)" 
-                ondragover="dragOver(event)" 
-                ondragenter="dragEnter(event)" >
-                <div class="tower auxillary"></div>
-            </div>
-            <div 
-                class="tower-area" 
-                ondrop="drop(event)" 
-                ondragover="dragOver(event)" 
-                ondragenter="dragEnter(event)" >
-                <div class="tower destination"></div>
-            </div>
+
+    <!-- towers (minimum of three) -->
+    <div class="towers-container">
+        <div 
+            class="tower-area" 
+            ondrop="drop(event)" 
+            ondragover="dragOver(event)" 
+            ondragenter="dragEnter(event)" >
+            <!-- first tower -->
+            <div class="tower source" id="source"></div>
         </div>
-
-        <!-- the tower's base -->
-        <div class="board-base"></div>
+        <div 
+            class="tower-area" 
+            ondrop="drop(event)" 
+            ondragover="dragOver(event)" 
+            ondragenter="dragEnter(event)" >
+            <div class="tower auxillary" id="auxillary"></div>
+        </div>
+        <div 
+            class="tower-area" 
+            ondrop="drop(event)" 
+            ondragover="dragOver(event)" 
+            ondragenter="dragEnter(event)" >
+            <div class="tower destination" id="destination"></div>
+        </div>
     </div>
+
+    <!-- the tower's base -->
+    <div class="board-base"></div>
+ 
 
 
     <!-- link to javascript file -->
