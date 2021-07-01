@@ -1,3 +1,4 @@
+// is javascript running?
 console.log("script is working! Let's play some Towers");
 
 // variables
@@ -76,12 +77,6 @@ function minPossibleNumOfMoves () {
     else document.querySelector("#min-possible-moves").innerHTML = solution;
 }
 
-// add or take away disks
-// function changeDiskPopulation (value) {
-//     localStorage.setItem("numOfDisks",document.getElementById("disk-range").value.toString())
-//     location.reload();
-// }
-
 // add 1 to score each time a disk is moved
 function addToScore () {
     let score = document.querySelector("#score").innerText;
@@ -143,15 +138,26 @@ function isLegalMove (event, data) {
     else illegalMoveModal();
 }
 
+function displayCongratulations () {
+    document.getElementById("congrats").style.display = "initial"
+    party.confetti(congrats , {
+        debug: false,
+        gravity: 600,
+        shapes: "roundedRectangle",
+        count: party.variation.range(70,90),
+        zIndex: 99999,
+    });
+}
+
 // check to see if the game is complete
 function isComplete (event, data, n) {
     if (event.target.children[0].classList[1] == "destination") {
         if (event.target.children[0].childElementCount == n) {
-            alert("CONGRATULATIONS! YOU DID IT!");
+            displayCongratulations()
         }
     } else if (event.target.classList[1] == "destination") {
         if (event.target.childElementCount == n) {
-            alert("CONGRATULATIONS! YOU DID IT!");
+            displayCongratulations()
         }
     }
 }

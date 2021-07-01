@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "confetti-js": "^0.0.18",
+    "party-js": "^2.0.1"
+  }
+}

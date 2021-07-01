@@ -1,21 +1,27 @@
-h1 {
+.homepage {
+    background-color: rgb(254,244,216);
+    text-align: center;
+    width: 100%;
+    height: 100%;
+}
+.homepage > h1 {
     font-family: 'Black Han Sans', sans-serif;
     font-size: 4vw;
-    margin-bottom: 20px;
-    text-align: center;
+    margin-bottom: 50px;
 }
-.homepage {
+.play-button {
+    text-decoration: none;
+    text-align: center;
+	background-color: rgb(63, 215, 224, .9);
+}
+.homepage-image {
     background-image: url(images/hanoi.jpg);
     background-repeat: repeat-x;
     background-position: bottom;
     background-size: 50%;
-    height: 600px;
+    height: 300px;
 }
-.play-screen {
-    display: flex;
-    flex-flow: column nowrap;
-    justify-content: center;
-}
+
 .main-game {
     background-color: rgb(254,244,216);
     background-image: url(images/background_clouds.jpg);
@@ -27,10 +33,17 @@ h1 {
 }
 .header {
     background-color: rgb(254,244,216);
+    margin-right: 35px;
     height: 100%;
     display: flex;
     flex-direction: column;
     min-width: 500px;
+}
+.header > h1 {
+    font-family: 'Black Han Sans', sans-serif;
+    font-size: 4vw;
+    margin-bottom: 20px;
+    text-align: center;
 }
 .sub-header {
     font-size: 1.5em;
@@ -39,6 +52,7 @@ h1 {
 }
 .score {
     align-self: center;
+    margin-right: 50px;
 }
 .scoreboard {
     display: flex;
@@ -69,12 +83,8 @@ h1 {
 	background-color: rgb(110, 224, 132, .5);
 }
 .start-over-button {
-	background-color: rgb(224, 189, 110, .5);
-}
-.play-button {
-    text-decoration: none;
-    text-align: center;
-	background-color: rgb(63, 215, 224, .9);
+	background-color: rgba(147, 128, 228, .5);
+    z-index: 3;
 }
 
 /* number of disks ticker */
@@ -88,7 +98,7 @@ h1 {
     height: 30px;
     border-radius:  5px;
     border: 2px solid black;
-    background-color: rgba(147, 128, 228, .5);
+    background-color: rgb(224, 189, 110, .5);
 }
 .num-of-disks-container .arrow {
     position: absolute;
@@ -225,6 +235,11 @@ h1 {
 	box-shadow: 0 3px 3px black;
 	padding: 4% 6%;
 }
+.textbox > h1 {
+    font-family: 'Black Han Sans', sans-serif;
+    margin-bottom: 20px;
+    text-align: center;
+}
 .about-textbox {
     text-align: justify;
     height: 400px;
@@ -238,4 +253,28 @@ h1 {
 .modal-footer {
 	text-align: right;
 }
+
+.congrats {
+	position: absolute;
+    background-color: rgb(254, 244, 216, .95);
+    display: none;
+	height: 100%;
+	width: 100%;
+	text-align: center;
+	margin: 0 auto;
+	top: 0;
+	left: 0;
+    z-index: 1;
+}
+
+.congrats > h1 {
+	position: absolute;
+    text-align: center;
+    font-size: 15vw;
+	top: 30vh;
+	width: 100%;
+    z-index: 2;
+}
+
+
 
