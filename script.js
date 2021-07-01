@@ -3,40 +3,34 @@ console.log("script is working! Let's play some Towers");
 
 // variables
 let disk = null;
-if (localStorage.getItem("numOfDisks") !== 3) numOfDisks = localStorage.getItem("numOfDisks");
-else numOfDisks = 3;
-
-// number ticker
-let numbers = document.getElementById('counter');
+let diskArray = [];
 for (let i = 2; i < 9; i++) {
-    var span = document.createElement('span');
-    span.textContent = i;
-    numbers.appendChild(span);
+    diskArray.push(i)
 }
 
-// save the array of span elements into a new variable
-var num = numbers.getElementsByTagName('span');
-var index = numOfDisks - 2;
+if (localStorage.getItem("index") !== 1) index = localStorage.getItem("index");
+else index = 1;
 
-// display index 1 for 3 disks
-// num[index].style.display = 'initial'
+// number ticker
+let number = document.getElementById('counter');
+var span = document.createElement('span');
+var numOfDisks = diskArray[index]
+span.textContent = numOfDisks;
+number.appendChild(span);
 
-// function to increase the number displayed by 1 unti
+
 function nextNum () {
-    num[index].style.display = 'none';
-    index = (index + 1) % num.length;
-    num[index].style.display = 'initial';
-    numOfDisks = num[index].innerHTML;
+    index = (index + 1) % diskArray.length;
+    numOfDisks = diskArray[index]
+    span.textContent = numOfDisks;
     populateBoard();
     minPossibleNumOfMoves();
 }
 
-// function to decrease the number displayed by 1 unti
 function prevNum () {
-    num[index].style.display = 'none';
-    index = (index - 1 + num.length) % num.length;
-    num[index].style.display = 'initial';
-    numOfDisks = num[index].innerHTML;
+    index = (index - 1 + diskArray.length) % diskArray.length;
+    numOfDisks = diskArray[index]
+    span.textContent = numOfDisks;
     populateBoard();
     minPossibleNumOfMoves();
 }
@@ -225,7 +219,7 @@ document.getElementById('close-illegal-move-modal').addEventListener('click', ()
 
 // reset the board
 document.getElementById("reload").addEventListener('click', () => {
-    localStorage.setItem("numOfDisks",num[index].innerHTML);
+    localStorage.setItem("index",index);
     window.location.reload();
 });
 

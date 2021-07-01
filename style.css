@@ -142,7 +142,7 @@
     height: 100%;
     text-align: center;
     line-height: 28px;
-    display: none;
+    /* display: none; */
     user-select: none;
 }
 .towers-container {
