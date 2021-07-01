@@ -4,39 +4,34 @@ console.log("script is working! Let's play some Towers");
 // variables
 let disk = null;
 let diskArray = [];
+let numOfDisks = 0;
 for (let i = 2; i < 9; i++) {
     diskArray.push(i)
 }
 
-if (localStorage.getItem("index") !== 1) index = localStorage.getItem("index");
-else index = 1;
+if (localStorage.getItem("index") !== 1) index = parseInt(localStorage.getItem("index"));
 
-// number ticker
-let number = document.getElementById('counter');
-var span = document.createElement('span');
-var numOfDisks = diskArray[index]
-span.textContent = numOfDisks;
-number.appendChild(span);
-
-
+// add disks
 function nextNum () {
     index = (index + 1) % diskArray.length;
-    numOfDisks = diskArray[index]
-    span.textContent = numOfDisks;
+    numOfDisks = diskArray[index];
     populateBoard();
     minPossibleNumOfMoves();
 }
 
+// take away disks
 function prevNum () {
     index = (index - 1 + diskArray.length) % diskArray.length;
-    numOfDisks = diskArray[index]
-    span.textContent = numOfDisks;
+    numOfDisks = diskArray[index];
     populateBoard();
     minPossibleNumOfMoves();
 }
 
 // populate the board with number of disks inputed
 function populateBoard () {
+    numOfDisks = diskArray[index]
+    document.getElementById('num-of-disks').textContent = numOfDisks;
+
     let s = document.getElementById("source");
     let a = document.getElementById("auxillary");
     let d = document.getElementById("destination");
@@ -196,12 +191,6 @@ for (tower of towers) {
     })
 }
 
-// slider to set how many disks
-// document.getElementById("disk-range").addEventListener('change', function() {
-//     let value = document.getElementById("disk-range").value
-//     changeDiskPopulation(value);
-// })
-
 // game modals
 // open the "learn to play" modal by clicking the button
 document.getElementById('open-modal').addEventListener('click', () => {
@@ -219,7 +208,8 @@ document.getElementById('close-illegal-move-modal').addEventListener('click', ()
 
 // reset the board
 document.getElementById("reload").addEventListener('click', () => {
-    localStorage.setItem("index",index);
+    console.log(index)
+    localStorage.setItem("index",diskArray.indexOf(numOfDisks));
     window.location.reload();
 });
 
