@@ -19,7 +19,7 @@ var num = numbers.getElementsByTagName('span');
 var index = numOfDisks - 2;
 
 // display index 1 for 3 disks
-num[index].style.display = 'initial'
+// num[index].style.display = 'initial'
 
 // function to increase the number displayed by 1 unti
 function nextNum () {
