@@ -1,51 +1,63 @@
-body {
-    background-color: rgb(254,244,216);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-h1 {
-    font-family: 'Black Han Sans', sans-serif;
-    margin-bottom: 50px;
-    align-self: center;
-    text-align: center;
-}
-
 .homepage {
+    background-color: rgb(254,244,216);
+    text-align: center;
+    width: 100%;
+    height: 100%;
+}
+.homepage > h1 {
+    font-family: 'Black Han Sans', sans-serif;
+    font-size: 4vw;
+    margin-bottom: 50px;
+}
+.play-button {
+    text-decoration: none;
+    text-align: center;
+	background-color: rgb(63, 215, 224, .9);
+}
+.homepage-image {
     background-image: url(images/hanoi.jpg);
     background-repeat: repeat-x;
     background-position: bottom;
     background-size: 50%;
-    height: 600px;
-}
-.play-screen {
-    display: flex;
-    flex-flow: column nowrap;
-    justify-content: center;
+    height: 300px;
 }
 
-.header {
-    margin: auto 100px;
-    padding: auto;
-    height: 125px;
-    display: flex;
-    justify-content: space-between;
+.main-game {
+    background-color: rgb(254,244,216);
+    background-image: url(images/background_clouds.jpg);
+    background-repeat: round;
+    background-size: 25rem;
     font-family: 'East Sea Dokdo', cursive;
-}
-
-.score {
-    font-size: 2em;
-    align-self: center;
-    padding: 10px;
-}
-.scoreboard {
-    font-size: 1.75em;
-    align-self: flex-start;
     display: flex;
-    line-height: .2rem;
     flex-direction: column;
 }
-
+.header {
+    background-color: rgb(254,244,216);
+    margin-right: 35px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    min-width: 500px;
+}
+.header > h1 {
+    font-family: 'Black Han Sans', sans-serif;
+    font-size: 4vw;
+    margin-bottom: 20px;
+    text-align: center;
+}
+.sub-header {
+    font-size: 1.5em;
+    display: flex;
+    justify-content: space-around;
+}
+.score {
+    align-self: center;
+    margin-right: 50px;
+}
+.scoreboard {
+    display: flex;
+    flex-direction: column;
+}
 .button-container {
     display: flex;
     flex-direction: column;
@@ -71,27 +83,28 @@ h1 {
 	background-color: rgb(110, 224, 132, .5);
 }
 .start-over-button {
-	background-color: rgb(224, 189, 110, .5);
-}
-.play-button {
-    text-decoration: none;
-	background-color: rgb(63, 215, 224, .9);
+	background-color: rgba(147, 128, 228, .5);
+    z-index: 3;
 }
 
-/* number ticker */
-.container {
+/* number of disks ticker */
+.num-of-disks-area {
+    display: flex;
+}
+
+.num-of-disks-container {
     position: relative;
     width: 80px;
     height: 30px;
     border-radius:  5px;
     border: 2px solid black;
-    background-color: rgba(147, 128, 228, .5);
+    background-color: rgb(224, 189, 110, .5);
 }
-.container .arrow {
+.num-of-disks-container .arrow {
     position: absolute;
     top: 50%;
     display: block;
-    width: 12px;
+    width: 10px;
     height: 12px;
     border-top: 2px solid rgb(0, 0, 0);
     border-left: 2px solid rgb(0, 0, 0);
@@ -100,117 +113,107 @@ h1 {
     opacity: 0;
     transition: 0.5s;
 }
-.container .next {
+.num-of-disks-container .next {
     right: 30px;
     transform: translateY(-50%) rotate(135deg);
 }
-.container:hover .next {
+.num-of-disks-container:hover .next {
     opacity: 1;
-    right: 15px;
+    right: 12px;
 }
-.container .prev {
+.num-of-disks-container .prev {
     left: 30px;
     transform: translateY(-50%) rotate(315deg);
 }
-.container:hover .prev {
+.num-of-disks-container:hover .prev {
     opacity: 1;
-    left: 15px;
+    left: 12px;
 }
-#box span {
+.num-of-disks-title {
+    position:relative;
+    margin-left: 4px;
+    line-height: 28px;
+    height: 100%;
+}
+#counter span {
     position:absolute;
     display: block;
     width: 100%;
     height: 100%;
     text-align: center;
-    line-height: 30px;
+    line-height: 28px;
     display: none;
     user-select: none;
 }
-
-
-.ticker-container {
-    position: relative;
-}
-.ticker-header {
-
-}
-.ticker {
-    width: 5em;
-    height: 25px;
-}
-
-.tower-background {
-    background-image: url(images/background_clouds.jpg);
-    background-repeat: round;
-    background-size: 25rem;
-}
-.towers {
+.towers-container {
     display: flex;
-    justify-content: space-around;
-    align-items: center;
-    margin: 100px 30px -9px 30px;
-    min-width: 900px;
+    margin-top: 10vh;
 }
 .tower-area {
     display: flex;
-    padding: 0 120px;
+    position: relative;
+    justify-content: center;
+    zoom: 1; /* Trigger hasLayout */
+    width: 33%;
 }
 .tower {
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
     align-items: center;
-    border: 1px solid;
+    border: 2px solid;
+    border-bottom: 0;
     border-radius: 50px 50px 0 0;
     background-color: #585858;
-    width: 25px;
-    height: 350px;
-    margin-top: 30px;
+    width: 2vw;
+    height: 40vh;
 }
+
 .board-base {
-    padding: 15px;
-    margin: 0 30px;
-    border-radius: 50px 50px 0 0;
+    justify-self: flex-end;
+    height: 5vh;
+    width: 100%;
+    border-radius: 1em 1em 0 0;
     background-color: #585858;
-    min-width: 900px;
 }
+
 .disk {
     border: solid;
     border-radius: 30px;
-    height: 35px;
+    height: 5vh;
     cursor: pointer;
 }
 #disk1 {
     background-color: rgba(145, 189, 202);
-    width: 60px;
+    width: 5vw;
 }
 #disk2 {
     background-color: rgba(224, 110, 189);
-    width: 90px;
+    width: 8vw;
 }
 #disk3 {
     background-color: rgba(224, 145, 110);
-    width: 120px;
+    width: 11vw;
 }
 #disk4 {
     background-color: rgba(145, 224, 189);
-    width: 150px;
+    width: 14vw;
 }
 #disk5 {
     background-color: rgba(224, 202, 110);
-    width: 180px;
+    width: 17vw;
 }
 #disk6 {
     background-color: rgba(189, 224, 110);
-    width: 210px;
+    width: 20vw;
 }
 #disk7 {
     background-color: rgba(224, 110, 132);
-    width: 240px;
+    width: 23vw;
 }
 #disk8 {
     background-color: rgba(202, 110, 224);
-    width: 270px;
+    width: 26vw;
 }
 
 .modal {
@@ -232,6 +235,11 @@ h1 {
 	box-shadow: 0 3px 3px black;
 	padding: 4% 6%;
 }
+.textbox > h1 {
+    font-family: 'Black Han Sans', sans-serif;
+    margin-bottom: 20px;
+    text-align: center;
+}
 .about-textbox {
     text-align: justify;
     height: 400px;
@@ -245,4 +253,28 @@ h1 {
 .modal-footer {
 	text-align: right;
 }
+
+.congrats {
+	position: absolute;
+    background-color: rgb(254, 244, 216, .95);
+    display: none;
+	height: 100%;
+	width: 100%;
+	text-align: center;
+	margin: 0 auto;
+	top: 0;
+	left: 0;
+    z-index: 1;
+}
+
+.congrats > h1 {
+	position: absolute;
+    text-align: center;
+    font-size: 15vw;
+	top: 30vh;
+	width: 100%;
+    z-index: 2;
+}
+
+
 

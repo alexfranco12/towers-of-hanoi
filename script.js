@@ -1,36 +1,58 @@
+// is javascript running?
 console.log("script is working! Let's play some Towers");
 
 // variables
 let disk = null;
-let numOfDisks = 3;
+if (localStorage.getItem("numOfDisks") !== 3) numOfDisks = localStorage.getItem("numOfDisks");
+else numOfDisks = 3;
 
-let numbers = document.getElementById('box');
-for (let i = 0; i < 9; i++) {
+// number ticker
+let numbers = document.getElementById('counter');
+for (let i = 2; i < 9; i++) {
     var span = document.createElement('span');
     span.textContent = i;
     numbers.appendChild(span);
 }
-var num = numbers.getElementsByTagName('span');
-var index = 0;
 
+// save the array of span elements into a new variable
+var num = numbers.getElementsByTagName('span');
+var index = numOfDisks - 2;
+
+// display index 1 for 3 disks
+num[index].style.display = 'initial'
+
+// function to increase the number displayed by 1 unti
 function nextNum () {
     num[index].style.display = 'none';
     index = (index + 1) % num.length;
     num[index].style.display = 'initial';
+    numOfDisks = num[index].innerHTML;
+    populateBoard();
+    minPossibleNumOfMoves();
 }
+
+// function to decrease the number displayed by 1 unti
 function prevNum () {
     num[index].style.display = 'none';
     index = (index - 1 + num.length) % num.length;
     num[index].style.display = 'initial';
+    numOfDisks = num[index].innerHTML;
+    populateBoard();
+    minPossibleNumOfMoves();
 }
-
-
-// document.getElementById("disk-range").value = numOfDisks;
-if (localStorage.getItem("numOfDisks") !== 3) numOfDisks = localStorage.getItem("numOfDisks");
-document.getElementById("disk-range").value = numOfDisks;
 
 // populate the board with number of disks inputed
 function populateBoard () {
+    let s = document.getElementById("source");
+    let a = document.getElementById("auxillary");
+    let d = document.getElementById("destination");
+    
+    while (s.firstChild || a.firstChild || d.firstChild) {
+        if (d.firstChild) d.removeChild(d.firstChild);
+        else if (a.firstChild) a.removeChild(a.firstChild);
+        else if (s.firstChild) s.removeChild(s.firstChild);
+    }
+
     for (let i = 1; i <= numOfDisks; i++) {
         // create a disk
         let disk = document.createElement("div")
@@ -41,22 +63,18 @@ function populateBoard () {
         disk.setAttribute("ondragstart", "dragStart(event)");
 
         // append the disk on the first tower
-        document.querySelector(".source").appendChild(disk);
+        document.getElementById("source").appendChild(disk);
     }
+
+    disksDraggable()
 }
 
 // calculate the minimum number of moves to solve the game
-function minPossibleNumOfMoves (n) {
-    let solution = (2**n)-1;
+function minPossibleNumOfMoves () {
+    let solution = (2**numOfDisks)-1;
     if (solution < 10) document.querySelector("#min-possible-moves").innerHTML = "00" + solution;
     else if (solution < 100) document.querySelector("#min-possible-moves").innerHTML = "0" + solution;
     else document.querySelector("#min-possible-moves").innerHTML = solution;
-}
-
-// add or take away disks
-function changeDiskPopulation (value) {
-    localStorage.setItem("numOfDisks",document.getElementById("disk-range").value.toString())
-    location.reload();
 }
 
 // add 1 to score each time a disk is moved
@@ -120,15 +138,26 @@ function isLegalMove (event, data) {
     else illegalMoveModal();
 }
 
+function displayCongratulations () {
+    document.getElementById("congrats").style.display = "initial"
+    party.confetti(congrats , {
+        debug: false,
+        gravity: 600,
+        shapes: "roundedRectangle",
+        count: party.variation.range(70,90),
+        zIndex: 99999,
+    });
+}
+
 // check to see if the game is complete
 function isComplete (event, data, n) {
     if (event.target.children[0].classList[1] == "destination") {
         if (event.target.children[0].childElementCount == n) {
-            alert("CONGRATULATIONS! YOU DID IT!");
+            displayCongratulations()
         }
     } else if (event.target.classList[1] == "destination") {
         if (event.target.childElementCount == n) {
-            alert("CONGRATULATIONS! YOU DID IT!");
+            displayCongratulations()
         }
     }
 }
@@ -173,16 +202,11 @@ for (tower of towers) {
     })
 }
 
-// set the board
-populateBoard();
-minPossibleNumOfMoves(numOfDisks);
-disksDraggable();
-
 // slider to set how many disks
-document.getElementById("disk-range").addEventListener('change', function() {
-    let value = document.getElementById("disk-range").value
-    changeDiskPopulation(value);
-})
+// document.getElementById("disk-range").addEventListener('change', function() {
+//     let value = document.getElementById("disk-range").value
+//     changeDiskPopulation(value);
+// })
 
 // game modals
 // open the "learn to play" modal by clicking the button
@@ -201,5 +225,11 @@ document.getElementById('close-illegal-move-modal').addEventListener('click', ()
 
 // reset the board
 document.getElementById("reload").addEventListener('click', () => {
+    localStorage.setItem("numOfDisks",num[index].innerHTML);
     window.location.reload();
 });
+
+// set the board
+populateBoard();
+disksDraggable();
+minPossibleNumOfMoves();
