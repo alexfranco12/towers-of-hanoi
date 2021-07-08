@@ -112,6 +112,9 @@ function isLegalMove (event, data) {
             event.target.prepend(document.getElementById(data));
             addToScore();
         }
+        else if (data == event.target.children[0].getAttribute("id")) {
+            event.target.prepend(document.getElementById(data));
+        }
         // if these conditions arent met, it must be an illegal move
         else illegalMoveModal();
     }
@@ -123,6 +126,9 @@ function isLegalMove (event, data) {
     else if (data < event.target.children[0].children[0].getAttribute("id")) {
         event.target.children[0].prepend(document.getElementById(data));
         addToScore();
+    }
+    else if (data == event.target.children[0].children[0].getAttribute("id")) {
+        event.target.children[0].prepend(document.getElementById(data));
     }
     else illegalMoveModal();
 }
