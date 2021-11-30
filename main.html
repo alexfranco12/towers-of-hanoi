@@ -19,13 +19,14 @@
         <h1 class="heading">TOWER OF HANOI</h1>
 
         <div class="sub-header">
+
             <!-- score -->
             <div class="scoreboard">
 
                 <div class="num-of-disks-area">
                     <div class="num-of-disks-container">
-                        <span class="arrow next" onclick="nextNum()"></span>
-                        <span class="arrow prev" onclick="prevNum()"></span>
+                        <span class="arrow next" onclick="addDisks()"></span>
+                        <span class="arrow prev" onclick="removeDisks()"></span>
                         <div id="counter"><span id="num-of-disks"></span></div>
                     </div>
                     <div class="num-of-disks-title"> disks </div>
@@ -106,22 +107,24 @@
     <!-- towers (minimum of three) -->
     <div class="towers-container">
         <div 
-            class="tower-area" 
+            class="tower-area"
+            id="source-area"
             ondrop="drop(event)" 
             ondragover="dragOver(event)" 
             ondragenter="dragEnter(event)" >
-            <!-- first tower -->
             <div class="tower source" id="source"></div>
         </div>
         <div 
-            class="tower-area" 
+            class="tower-area"
+            id="auxillary-area"
             ondrop="drop(event)" 
             ondragover="dragOver(event)" 
             ondragenter="dragEnter(event)" >
             <div class="tower auxillary" id="auxillary"></div>
         </div>
         <div 
-            class="tower-area" 
+            class="tower-area"
+            id="destination-area"
             ondrop="drop(event)" 
             ondragover="dragOver(event)" 
             ondragenter="dragEnter(event)" >
