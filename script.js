@@ -36,12 +36,12 @@ function populateBoard () {
   let a = document.getElementById("auxillary");
   let d = document.getElementById("destination");
   
-  // ? what is this doing
-  // while (s.firstChild || a.firstChild || d.firstChild) {
-  //   if (d.firstChild) d.removeChild(d.firstChild);
-  //   else if (a.firstChild) a.removeChild(a.firstChild);
-  //   else if (s.firstChild) s.removeChild(s.firstChild);
-  // }
+  // remove all disks from board before populating
+  while (s.firstChild || a.firstChild || d.firstChild) {
+    if (d.firstChild) d.removeChild(d.firstChild);
+    else if (a.firstChild) a.removeChild(a.firstChild);
+    else if (s.firstChild) s.removeChild(s.firstChild);
+  }
 
   // populate source tower with 'numOfDisks' disks
   for (let i=1; i<=numOfDisks; i++) {
