@@ -29,7 +29,7 @@ function removeDisks () {
  * ----- POPULATE THE BOARD -----
 */
 function populateBoard () {
-  numOfDisks = diskArray[index]
+  numOfDisks = diskArray[index] || 3
   document.getElementById('num-of-disks').textContent = numOfDisks;
 
   let s = document.getElementById("source");
