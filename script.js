@@ -3,33 +3,14 @@ console.log("script is working! Let's play some Towers");
 
 // variables
 let disk = null;
-let numOfDisks = 3;
+let numOfDisks = parseInt(localStorage.getItem("numOfDisks")) || null;
 let maxNumOfDisks = 8;
-let diskArray = [];
-for (let i = 2; i < 9; i++) diskArray.push(i);
-if (localStorage.getItem("index") !== 1) index = parseInt(localStorage.getItem("index"));
-
-// add disks to game
-function addDisks () {
-  index = (index + 1) % diskArray.length;
-  numOfDisks = diskArray[index];
-  populateBoard();
-  minPossibleNumOfMoves();
-}
-
-// take away disks
-function removeDisks () {
-  index = (index - 1 + diskArray.length) % diskArray.length;
-  numOfDisks = diskArray[index];
-  populateBoard();
-  minPossibleNumOfMoves();
-}
 
 /* 
  * ----- POPULATE THE BOARD -----
 */
 function populateBoard () {
-  numOfDisks = diskArray[index] || 3
+  numOfDisks = numOfDisks || 3;
   document.getElementById('num-of-disks').textContent = numOfDisks;
 
   let s = document.getElementById("source");
@@ -51,11 +32,27 @@ function populateBoard () {
       disk.setAttribute("ondragstart", "dragStart(event)"); // allow the disk to be draggable      
       document.getElementById("source").appendChild(disk); // append the disk on the first tower
   }
-
+  // after populating board -> give all disks a draggable attribute
   disksDraggable()
 }
 
-// calculate the minimum number of moves to solve the game
+// add disks to game
+function addDisks () {
+  numOfDisks = (numOfDisks % maxNumOfDisks) + 1;
+  populateBoard();
+  minPossibleNumOfMoves();
+}
+
+// take away disks
+function removeDisks () {
+  numOfDisks = (numOfDisks !== 1) ? numOfDisks - 1 : maxNumOfDisks;
+  populateBoard();
+  minPossibleNumOfMoves();
+}
+
+/*
+ * ----- NUMBER OF MOVES TO SOLVE GAME -----
+*/ 
 function minPossibleNumOfMoves () {
   let solution = (2**numOfDisks)-1;
   if (solution < 10) document.querySelector("#min-possible-moves").innerHTML = "00" + solution;
@@ -63,7 +60,9 @@ function minPossibleNumOfMoves () {
   else document.querySelector("#min-possible-moves").innerHTML = solution;
 }
 
-// add 1 to score each time a disk is moved
+/*
+ * ----- SCORE -----
+*/ 
 function addToScore () {
   let score = document.querySelector("#score").innerText;
   score = (parseInt(score) < 9) ? "00" + (parseInt(score)+1) : "0" + (parseInt(score)+1);
@@ -92,37 +91,20 @@ function illegalMoveModal () {
 // preventing the user from placing a larger disk on a smaller one
 function isLegalMove (event) {
   const data = event.dataTransfer.getData("disk");
-    // is the cursor over the actual tower
-    if (event.target.classList[0] == "tower") {
-        // does the tower have any disks
-        if (event.target.children[0] === undefined) {
-            event.target.prepend(document.getElementById(data));
-            addToScore();
-        }
-        // if the tower contains disks, is the top disk smaller than the current disk being dragged
-        else if (data < event.target.children[0].getAttribute("id")) {
-            event.target.prepend(document.getElementById(data));
-            addToScore();
-        }
-        else if (data == event.target.children[0].getAttribute("id")) {
-            event.target.prepend(document.getElementById(data));
-        }
-        // if these conditions arent met, it must be an illegal move
-        else illegalMoveModal();
-    }
-    // is the cursor near the tower
-    else if (event.target.children[0].children[0] === undefined) {
-        event.target.children[0].prepend(document.getElementById(data));
-        addToScore();
-    }
-    else if (data < event.target.children[0].children[0].getAttribute("id")) {
-        event.target.children[0].prepend(document.getElementById(data));
-        addToScore();
-    }
-    else if (data == event.target.children[0].children[0].getAttribute("id")) {
-        event.target.children[0].prepend(document.getElementById(data));
-    }
-    else illegalMoveModal();
+  const tower = (event.target.classList[0] === "tower") // is the cursor over the actual tower or tower-area
+              ? event.target 
+              : event.target.children[0]
+  const topDisk = (event.target.classList[0] === "tower") 
+                ? event.target.children[0] 
+                : event.target.children[0].children[0]
+
+    
+  // if the tower contains disks, is the top disk smaller than the current disk being dragged
+  if (topDisk === undefined || data <= topDisk.getAttribute("id")) {
+    tower.prepend(document.getElementById(data));
+    addToScore();
+  }
+  else illegalMoveModal(); // if these conditions arent met, it must be an illegal move
 }
 
 // functions to drag the disks from tower to tower
@@ -188,7 +170,7 @@ document.getElementById('close-illegal-move-modal').addEventListener('click', ()
  * ----- START OVER -----
 */ 
 document.getElementById("reload").addEventListener('click', () => {
-  localStorage.setItem("index", diskArray.indexOf(numOfDisks));
+  localStorage.setItem("numOfDisks", numOfDisks);
   window.location.reload();
 });
 
